@@ -5,9 +5,9 @@
 plugins:
   docker:
     executor: host_agent
-    source: https://github.com/cloudify-cosmo/cloudify-docker-plugin/archive/1.3.2.zip
+    source: https://github.com/cloudify-cosmo/cloudify-docker-plugin/archive/CFY-5483-Host-Config.zip
     package_name: cloudify-docker-plugin
-    package_version: '1.3.2'
+    package_version: '1.3.3.dev0'
 
 node_types:
 
@@ -42,6 +42,8 @@ node_types:
                 A dictionary of parameters allowed by docker-py to the
                 create_container function.
               default: {}
+            daemon_client:
+              default: {}
         start:
           implementation: docker.docker_plugin.tasks.start
           inputs:
@@ -63,6 +65,8 @@ node_types:
                 checks.
               type: integer
               default: 1
+            daemon_client:
+              default: {}
         stop:
           implementation: docker.docker_plugin.tasks.stop
           inputs:
@@ -77,6 +81,8 @@ node_types:
                 the number of seconds between retries.
               type: integer
               default: 10
+            daemon_client:
+              default: {}
         delete:
           implementation: docker.docker_plugin.tasks.remove_container
           inputs:
@@ -84,4 +90,6 @@ node_types:
               description: >
                 A dictionary of parameters allowed by docker-py to the
                 remove_container function.
+              default: {}
+            daemon_client:
               default: {}

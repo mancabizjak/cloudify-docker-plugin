@@ -21,7 +21,7 @@ from docker.errors import DockerException
 from cloudify.exceptions import NonRecoverableError
 
 
-def get_client(daemon_client):
+def get_client(daemon_client, host_config):
     """Get client.
 
     Returns docker client using daemon_client as configuration.
@@ -33,7 +33,10 @@ def get_client(daemon_client):
     """
 
     try:
-        return Client(**daemon_client)
+        c = Client(**daemon_client)
+        if host_config:
+            c.create_host_config(**host_config)
+        return c
     except DockerException as e:
         raise NonRecoverableError(
             'Error while getting client: {0}.'.format(str(e)))

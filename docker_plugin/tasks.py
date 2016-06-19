@@ -46,7 +46,8 @@ def create_container(params, daemon_client=None, **_):
     """
 
     daemon_client = daemon_client or {}
-    client = docker_client.get_client(daemon_client)
+    host_config = params.pop('host_config', None)
+    client = docker_client.get_client(daemon_client, host_config)
 
     if ctx.node.properties['use_external_resource']:
         if 'name' not in ctx.node.properties:
