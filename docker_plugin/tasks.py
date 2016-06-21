@@ -270,8 +270,8 @@ def pull(client, arguments):
     sha_image_id = utils.get_image_id(
         arguments.get('tag'), arguments.get('repository'), client)
     image_id = '{0}:{1}'.format(
-        arguments.get('tag'),
-        arguments.get('repository')
+        arguments.get('repository'),
+        arguments.get('tag')
     )
 
     ctx.instance.runtime_properties['sha_image_id'] = sha_image_id
