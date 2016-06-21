@@ -25,7 +25,7 @@ SHA = 'sha256:'
 def get_image_id(tag, repository, client):
 
     try:
-        images = client.images()
+        images = client.images(quiet=True)
     except APIError as e:
         raise NonRecoverableError(
             'Unable to get last created image: {0}'.format(e))
