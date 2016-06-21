@@ -257,6 +257,7 @@ def pull(client, arguments):
     try:
         for stream in client.pull(**arguments):
             stream_dict = json.loads(stream)
+            ctx.logger.debug('Stream Dict: {0}'.format(str(stream_dict)))
             if 'id' in stream_dict:
                 image_id = stream_dict.get('id')
             if 'Complete' in stream_dict.get('status', ''):
