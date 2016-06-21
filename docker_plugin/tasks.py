@@ -257,9 +257,9 @@ def pull(client, arguments):
     try:
         for stream in client.pull(**arguments):
             stream_dict = json.loads(stream)
-            if 'id' in stream_dict:
-                image_id = stream_dict.get('id')
-            elif 'Complete' in stream_dict.get('status', ''):
+            # if 'id' in stream_dict:
+            #     image_id = stream_dict.get('id')
+            if 'Complete' in stream_dict.get('status', ''):
                 ctx.logger.info('docker_plugin.tasks.pull: {0}.'.format(
                     stream_dict))
     except APIError as e:
@@ -267,15 +267,14 @@ def pull(client, arguments):
             'Unabled to pull image: {0}. Error: {1}.'
             .format(arguments, str(e)))
 
-    if not image_id:
-        sha_image_id = utils.get_image_id(
-            arguments.get('tag'), arguments.get('repository'), client)
-        image_id = '{0}:{1}'.format(
-            arguments.get('tag'),
-            arguments.get('repository')
-        )
+    sha_image_id = utils.get_image_id(
+        arguments.get('tag'), arguments.get('repository'), client)
+    image_id = '{0}:{1}'.format(
+        arguments.get('tag'),
+        arguments.get('repository')
+    )
 
-    # ctx.instance.runtime_properties['sha_image_id'] = sha_image_id
+    ctx.instance.runtime_properties['sha_image_id'] = sha_image_id
     ctx.instance.runtime_properties['image_id'] = image_id
     ctx.logger.info('Pulled image, image_id: {0}'.format(image_id))
     return image_id
