@@ -19,8 +19,8 @@ from docker.errors import APIError
 from cloudify import ctx
 from cloudify.exceptions import RecoverableError, NonRecoverableError
 
-
 SHA = 'sha256:'
+
 
 def get_image_id(tag, repository, client):
 
@@ -29,6 +29,8 @@ def get_image_id(tag, repository, client):
     except APIError as e:
         raise NonRecoverableError(
             'Unable to get last created image: {0}'.format(e))
+
+    ctx.logger.info('Images: {0}'.format(images))
 
     for image in images:
         if '{0}:{1}'.format(repository, tag) in image.get('RepoTags'):
