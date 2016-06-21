@@ -258,7 +258,7 @@ def pull(client, arguments):
         for stream in client.pull(**arguments):
             stream_dict = json.loads(stream)
             ctx.logger.debug('Stream Dict: {0}'.format(str(stream_dict)))
-            if 'id' in stream_dict:
+            if 'Pull complete' in stream_dict:
                 image_id = stream_dict.get('id')
             if 'Complete' in stream_dict.get('status', ''):
                 ctx.logger.info('docker_plugin.tasks.pull: {0}.'.format(
