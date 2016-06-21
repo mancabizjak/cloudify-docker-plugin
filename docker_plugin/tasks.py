@@ -275,7 +275,7 @@ def pull(client, arguments):
             arguments.get('repository')
         )
 
-    ctx.instance.runtime_properties['sha_image_id'] = sha_image_id
+    # ctx.instance.runtime_properties['sha_image_id'] = sha_image_id
     ctx.instance.runtime_properties['image_id'] = image_id
     ctx.logger.info('Pulled image, image_id: {0}'.format(image_id))
     return image_id
