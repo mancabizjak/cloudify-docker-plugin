@@ -20,6 +20,8 @@ from cloudify import ctx
 from cloudify.exceptions import RecoverableError, NonRecoverableError
 
 
+SHA = 'sha256:'
+
 def get_image_id(tag, repository, client):
 
     try:
@@ -30,7 +32,8 @@ def get_image_id(tag, repository, client):
 
     for image in images:
         if '{0}:{1}'.format(repository, tag) in image.get('RepoTags'):
-            return image.get('Id')
+            image_id = image.get('Id')
+            return image_id if SHA not in image_id else image_id.strip(SHA)
 
     raise NonRecoverableError(
         'Could not find an image that matches repository:tag'
