@@ -17,6 +17,7 @@
 
 # Built-in Imports
 import json
+import time
 
 # Third-party Imports
 from docker.errors import APIError
@@ -76,7 +77,7 @@ def create_container(params, daemon_client=None, **_):
 
 
 @operation
-def start(params, processes_to_wait_for, retry_interval,
+def start(params, processes_to_wait_for, retry_interval, delay,
           daemon_client=None, **_):
     """ cloudify.docker.container type start lifecycle operation.
         Any properties and runtime_properties set in the create
@@ -88,7 +89,9 @@ def start(params, processes_to_wait_for, retry_interval,
     :param retry_interval: The number of seconds between retries during
         the wait_for_processes bit.
     """
-
+    
+    time.sleep(delay)
+    ctx.logger.info('Waiting %d seconds' % delay)
     daemon_client = daemon_client or {}
     client = docker_client.get_client(daemon_client)
 

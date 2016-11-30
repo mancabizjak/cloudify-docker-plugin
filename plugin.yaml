@@ -63,6 +63,11 @@ node_types:
                 checks.
               type: integer
               default: 1
+            delay:
+              description: >
+                Before starting this operation, wait for delay seconds
+              type: integer
+              default: 0
         stop:
           implementation: docker.docker_plugin.tasks.stop
           inputs:
